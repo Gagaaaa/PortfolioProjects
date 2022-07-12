@@ -149,3 +149,24 @@ where deaths.continent is not null
 
 Select *
 From PercentPopulationVaccinated
+
+Create View GlobalDeathCount as
+Select continent, MAX(CAST(total_deaths as int))  TotalDeathCount
+from PortfolioProject..CovidDeaths
+--where location like '%nigeria%'
+where continent is not null
+Group by continent
+--order by TotalDeathCount desc
+
+Select *
+From GlobalDeathCount
+
+
+Create View NigeriasDeathCount as
+Select location, date, total_cases, total_deaths
+from PortfolioProject..CovidDeaths
+where location like '%nigeria%'
+--order by 1,2
+
+Select *
+From NigeriasDeathCount
